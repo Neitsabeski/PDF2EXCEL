@@ -19,7 +19,7 @@ if %errorlevel% neq 0 (
 for /f "delims=" %%i in ('where python') do set PYTHON_PATH=%%i
 
 :: Écrivez le chemin dans un fichier texte
-echo %PYTHON_PATH% > .\dossier\python_path.txt
+echo %PYTHON_PATH% > .\python_path.txt
 
 :: Téléchargez et installez Java
 echo Téléchargement de Java...
