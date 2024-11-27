@@ -15,6 +15,12 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+:: Récupérez le chemin de python.exe
+for /f "delims=" %%i in ('where python') do set PYTHON_PATH=%%i
+
+:: Écrivez le chemin dans un fichier texte
+echo %PYTHON_PATH% > python_path.txt
+
 :: Installez pip
 echo Installation de pip...
 python -m ensurepip
@@ -25,6 +31,7 @@ echo Installation des dépendances...
 python -m pip install tabula-py pandas openpyxl xlsxwriter
 
 echo Installation terminée. Python, pip et les dépendances sont installés.
+echo Le chemin de python.exe a été enregistré dans python_path.txt.
 
 endlocal
 pause
