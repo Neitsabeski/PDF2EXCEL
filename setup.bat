@@ -21,6 +21,19 @@ for /f "delims=" %%i in ('where python') do set PYTHON_PATH=%%i
 :: Écrivez le chemin dans un fichier texte
 echo %PYTHON_PATH% > .\dossier\python_path.txt
 
+:: Téléchargez et installez Java
+echo Téléchargement de Java...
+curl -o java-installer.exe https://javadl.oracle.com/webapps/download/AutoDL?BundleId=244058_d7fc238d0cbf4b0dac67be84580cfb4b
+
+echo Installation de Java...
+start /wait java-installer.exe /s
+
+:: Récupérez le chemin de java.exe
+for /f "delims=" %%i in ('where java') do set JAVA_PATH=%%i
+
+:: Ajoutez Java au PATH
+setx PATH "%PATH%;%JAVA_PATH%"
+
 :: Installez pip
 echo Installation de pip...
 python -m ensurepip
@@ -30,7 +43,7 @@ python -m pip install --upgrade pip
 echo Installation des dépendances...
 python -m pip install tabula-py pandas openpyxl xlsxwriter
 
-echo Installation terminée. Python, pip et les dépendances sont installés.
+echo Installation terminée. Python, Java, pip et les dépendances sont installés.
 echo Le chemin de python.exe a été enregistré dans python_path.txt.
 
 endlocal
