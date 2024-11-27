@@ -15,18 +15,27 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:: Récupérez le chemin de python.exe
-for /f "delims=" %%i in ('where python') do set PYTHON_PATH=%%i
+:: Récupérez le chemin d'installation de python.exe
+for /f "delims=" %%i in ('where python') do (
+    set PYTHON_PATH=%%i
+)
 
 :: Écrivez le chemin dans un fichier texte
 echo %PYTHON_PATH% > .\python_path.txt
 
-:: Téléchargez et installez Java
-echo Téléchargement de Java...
-curl -o java-installer.exe https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.exe
+:: Instructions pour installer Java manuellement
+echo Veuillez télécharger et installer Java manuellement depuis https://www.java.com/en/download/manual.jsp
+echo Après l'installation, ajoutez le chemin de java.exe au PATH.
 
-echo Installation de Java...
-start /wait java-installer.exe /s
+:: Pause pour permettre l'installation manuelle de Java
+pause
+
+:: Vérifiez que Java est installé
+java -version
+if %errorlevel% neq 0 (
+    echo Erreur: Java n'a pas été installé correctement.
+    exit /b 1
+)
 
 :: Récupérez le chemin de java.exe
 for /f "delims=" %%i in ('where java') do set JAVA_PATH=%%i
