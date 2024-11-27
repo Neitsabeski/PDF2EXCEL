@@ -23,7 +23,7 @@ echo %PYTHON_PATH% > .\python_path.txt
 
 :: Téléchargez et installez Java
 echo Téléchargement de Java...
-curl -o java-installer.exe https://javadl.oracle.com/webapps/download/AutoDL?BundleId=244058_d7fc238d0cbf4b0dac67be84580cfb4b
+curl -o java-installer.exe https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.exe
 
 echo Installation de Java...
 start /wait java-installer.exe /s
