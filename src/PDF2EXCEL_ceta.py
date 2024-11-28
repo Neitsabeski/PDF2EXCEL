@@ -98,7 +98,7 @@ def convert_pdfs(pdf_paths, treeview):
                         try:
                             # Vérifier si la valeur peut être convertie en nombre
                             numeric_value = float(cell_value.replace('.', '').replace(',', '.')) if isinstance(cell_value, str) else float(cell_value)
-                            if pd.notna(numeric_value) and not pd.isinf(numeric_value):
+                            if pd.notna(numeric_value) and not pd.isinf(n_value):
                                 # Appliquer la nouvelle valeur de la cellule
                                 worksheet.write_number(row_num, col_num, numeric_value)
                         except (ValueError, AttributeError):
@@ -122,6 +122,9 @@ def start_conversion(treeview):
     
     convert_pdfs(pdf_paths, treeview)
 
+def remove_item(treeview, item):
+    treeview.delete(item)
+
 # Interface graphique avec Tkinter
 root = tk.Tk()
 root.title("PDF to Excel Converter")
@@ -134,6 +137,13 @@ treeview.heading("Nom du fichier", text="Nom du fichier")
 treeview.heading("Chemin du fichier", text="Chemin du fichier")
 treeview.heading("État", text="État")
 treeview.pack(pady=5)
+
+def on_treeview_click(event):
+    item = treeview.identify_row(event.y)
+    if treeview.identify_column(event.x) == "#1":  # Vérifie si la colonne cliquée est la première
+        remove_item(treeview, item)
+
+treeview.bind("<Button-1>", on_treeview_click)
 
 browse_button = tk.Button(frame, text="Parcourir", command=lambda: browse_files(treeview))
 browse_button.pack(pady=5)
